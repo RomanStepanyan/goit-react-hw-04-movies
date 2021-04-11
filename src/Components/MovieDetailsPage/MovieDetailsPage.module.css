@@ -1,0 +1,21 @@
+.movie_container {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 15px;
+}
+/* .title {
+  display: block;
+} */
+.description_container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 26px;
+  padding-right: 16px;
+}
+.genres_container {
+  display: flex;
+  flex-direction: row;
+}
+.genres {
+  margin-right: 16px;
+}

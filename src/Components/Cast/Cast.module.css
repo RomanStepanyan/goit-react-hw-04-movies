@@ -1,0 +1,24 @@
+.casting_container {
+  max-width: 100vw;
+}
+
+.casting_list {
+  padding-left: 15px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.casting_items_list {
+  width: 150px;
+}
+
+.casting_image {
+  width: 150px;
+  height: auto;
+}
+
+.casting_character {
+  display: flex;
+  flex-wrap: wrap;
+}
