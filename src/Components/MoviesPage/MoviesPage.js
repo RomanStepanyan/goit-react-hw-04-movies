@@ -1,11 +1,15 @@
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import { getSearchedMovies } from '../Api/Api';
+import s from './MoviesPage.module.css';
 
 const SearchMoviesPage = () => {
-  const [keyWord, setKeyWord] = useState('');
-  const [searchedMovies, setSearchedMovies] = useState(null);
+  const { pathname, state } = useLocation();
+  const [keyWord, setKeyWord] = useState(state?.keyWord || '');
+  const [searchedMovies, setSearchedMovies] = useState(
+    state?.searchedMovies || null,
+  );
   const { url } = useRouteMatch();
 
   const onChange = ({ target }) => {
@@ -18,15 +22,20 @@ const SearchMoviesPage = () => {
     getSearchedMovies(keyWord).then(setSearchedMovies);
   };
 
+  useEffect(() => {
+    if (!state?.keyWord) return;
+    getSearchedMovies(state?.keyWord).then(setSearchedMovies);
+  }, [state?.keyWord]);
+
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form className={s.form} onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="Find movies"
           name="keyWord"
           value={keyWord}
-          className="search_input"
+          className={s.input}
           onChange={onChange}
         />
         <button type="submit" className="input_submit_button">
@@ -37,7 +46,9 @@ const SearchMoviesPage = () => {
         {searchedMovies &&
           searchedMovies.results.map(movie => (
             <li key={movie.id}>
-              <Link to={`${url}/${movie.id}`}>{movie.original_title}</Link>
+              <Link to={{ pathname: `${url}/${movie.id}`, state: { keyWord } }}>
+                {movie.original_title}
+              </Link>
             </li>
           ))}
       </ul>

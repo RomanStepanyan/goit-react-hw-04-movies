@@ -1,15 +1,27 @@
-import { useState, useEffect } from 'react';
-import { NavLink, Router, useParams, useRouteMatch } from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import {
+  NavLink,
+  Route,
+  useParams,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import { getMovieDetails } from '../Api/Api';
-
-import Cast from '../Cast/Cast';
+// import GoBackButton from '../GoBackButton/GoBackButton';
 import s from './MovieDetailsPage.module.css';
+
+const Cast = lazy(() => import('../Cast/Cast' /* webpackChunkName: "Cast" */));
+const Reviews = lazy(() =>
+  import('../Reviews/Reviews' /* webpackChunkName: "Reviews" */),
+);
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState('');
-
+  const { push } = useHistory();
+  const { pathname, state } = useLocation();
   const { movieId } = useParams();
-  const { url } = useRouteMatch();
+  const { url, path } = useRouteMatch();
   console.log(movieId);
   console.log(url);
 
@@ -19,6 +31,12 @@ const MovieDetails = () => {
 
   return (
     <div className={s.container}>
+      {/* {movie && <GoBackButton pathname={pathname} push={push} />} */}
+      {movie && (
+        <button onClick={() => push({ pathname: '/movies' }, state)}>
+          Go back
+        </button>
+      )}
       {movie && (
         <div className={s.movie_container}>
           <img
@@ -54,12 +72,14 @@ const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      {/* <Router path="/movies/:movieId/cast">
-        <Cast />
-      </Router> */}
-      {/* <Router path="/movies/:movieId/reviews">
-        <Reviews />
-      </Router> */}
+      <Suspense fallback={<p>Loading...</p>}>
+        <Route path={`${path}/cast`}>
+          <Cast />
+        </Route>
+        <Route path={`${path}/reviews`}>
+          <Reviews />
+        </Route>
+      </Suspense>
     </div>
   );
 };

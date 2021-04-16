@@ -10,14 +10,14 @@ const Navigation = () => {
         className={s.Nav_Link}
         activeClassName={s.active_Nav_Link}
       >
-        Home
+        <p className={s.Nav_Item}>Home</p>
       </NavLink>
       <NavLink
         to="/movies"
         className={s.Nav_Link}
         activeClassName={s.active_Nav_Link}
       >
-        Movies
+        <p className={s.Nav_Item}>Movies</p>
       </NavLink>
       <hr />
     </>

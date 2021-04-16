@@ -1,0 +1,27 @@
+.page_title_wrapper {
+  margin: auto;
+  text-align: center;
+}
+
+.image {
+  width: 230px;
+  height: auto;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.list_item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+/* .movie_title {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+} */
