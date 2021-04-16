@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/Components/MoviesPage/MoviesPage.module.css"],"names":[],"mappings":"AAAA,wBACE,gBACF,CACA,yBACE,WACF","file":"MoviesPage.a76202df.chunk.css","sourcesContent":[".form {\r\n  margin: 10px 40px;\r\n}\r\n.input {\r\n  width: 264px;\r\n}\r\n"]}
