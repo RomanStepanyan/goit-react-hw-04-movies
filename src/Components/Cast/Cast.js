@@ -7,10 +7,11 @@ import s from './Cast.module.css';
 const Cast = () => {
   const { movieId } = useParams();
   const [casting, setCasting] = useState(null);
+
   useEffect(() => {
     getMovieCredits(movieId).then(setCasting);
   }, [movieId]);
-  console.log(casting);
+
   return (
     <div className={s.casting_container}>
       <ul className={s.casting_list}>

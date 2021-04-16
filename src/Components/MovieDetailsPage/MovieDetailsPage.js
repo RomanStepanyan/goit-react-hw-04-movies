@@ -8,7 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { getMovieDetails } from '../Api/Api';
-// import GoBackButton from '../GoBackButton/GoBackButton';
+import GoBackButton from '../GoBackButton/GoBackButton';
 import s from './MovieDetailsPage.module.css';
 
 const Cast = lazy(() => import('../Cast/Cast' /* webpackChunkName: "Cast" */));
@@ -17,13 +17,11 @@ const Reviews = lazy(() =>
 );
 
 const MovieDetails = () => {
-  const [movie, setMovie] = useState('');
+  const { state } = useLocation();
+  const [movie, setMovie] = useState(state?.movie || '');
   const { push } = useHistory();
-  const { pathname, state } = useLocation();
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
-  console.log(movieId);
-  console.log(url);
 
   useEffect(() => {
     getMovieDetails(movieId).then(setMovie);
@@ -31,12 +29,8 @@ const MovieDetails = () => {
 
   return (
     <div className={s.container}>
-      {/* {movie && <GoBackButton pathname={pathname} push={push} />} */}
-      {movie && (
-        <button onClick={() => push({ pathname: '/movies' }, state)}>
-          Go back
-        </button>
-      )}
+      {movie && <GoBackButton push={push} url={state?.url} state={state} />}
+
       {movie && (
         <div className={s.movie_container}>
           <img
@@ -45,7 +39,9 @@ const MovieDetails = () => {
             alt={movie.original_title}
           />
           <div className={s.description_container}>
-            <h2 className={s.title}>{movie.original_title}</h2>
+            <h2 className={s.title}>
+              {movie.original_title} ({movie.release_date})
+            </h2>
             <p>User score : {Number(movie.vote_average) * 10}%</p>
             <h3 className={s.overview_title}>Overview</h3>
             <p>{movie.overview}</p>
@@ -62,13 +58,15 @@ const MovieDetails = () => {
       )}
       <hr />
       <div className={s.cast_reviews_container}>
-        <h3>Additional information</h3>
-        <ul>
+        <h3 className={s.information_title}>Additional information</h3>
+        <ul className={s.informational_list}>
           <li>
-            <NavLink to={`${url}/cast`}>Cast</NavLink>
+            <NavLink to={{ pathname: `${url}/cast`, state }}>Cast</NavLink>
           </li>
           <li>
-            <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+            <NavLink to={{ pathname: `${url}/reviews`, state }}>
+              Reviews
+            </NavLink>
           </li>
         </ul>
       </div>

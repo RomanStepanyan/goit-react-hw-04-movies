@@ -8,7 +8,6 @@ export async function getPopularMovies(page = 1) {
   const res = await axios.get(
     `/trending/all/day?api_key=${API_KEY}&page=${page}`,
   );
-  console.log(res.data);
   return res.data;
 }
 

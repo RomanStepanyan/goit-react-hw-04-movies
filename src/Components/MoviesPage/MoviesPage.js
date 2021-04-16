@@ -5,16 +5,15 @@ import { getSearchedMovies } from '../Api/Api';
 import s from './MoviesPage.module.css';
 
 const SearchMoviesPage = () => {
-  const { pathname, state } = useLocation();
+  const { state } = useLocation();
+  const { url } = useRouteMatch();
   const [keyWord, setKeyWord] = useState(state?.keyWord || '');
   const [searchedMovies, setSearchedMovies] = useState(
     state?.searchedMovies || null,
   );
-  const { url } = useRouteMatch();
 
   const onChange = ({ target }) => {
     setKeyWord(target.value);
-    console.log(keyWord);
   };
 
   const onSubmit = event => {
@@ -46,7 +45,12 @@ const SearchMoviesPage = () => {
         {searchedMovies &&
           searchedMovies.results.map(movie => (
             <li key={movie.id}>
-              <Link to={{ pathname: `${url}/${movie.id}`, state: { keyWord } }}>
+              <Link
+                to={{
+                  pathname: `${url}/${movie.id}`,
+                  state: { keyWord, url },
+                }}
+              >
                 {movie.original_title}
               </Link>
             </li>

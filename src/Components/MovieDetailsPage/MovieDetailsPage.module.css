@@ -3,9 +3,12 @@
   justify-content: space-around;
   padding-left: 15px;
 }
-/* .title {
-  display: block;
-} */
+.information_title {
+  margin-left: 43px;
+}
+.informational_list {
+  list-style: none;
+}
 .description_container {
   display: flex;
   flex-direction: column;

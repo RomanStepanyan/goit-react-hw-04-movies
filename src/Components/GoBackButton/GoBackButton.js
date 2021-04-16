@@ -1,9 +1,13 @@
-import { useLocation, useHistory } from 'react-router-dom';
+import s from './GoBackButton.module.css';
 
-const GoBackButton = (pathname, push) => {
-  // const { pathname } = useLocation();
-  // const { push } = useHistory();
-
-  return <button onClick={() => push(`${pathname}`)}>Go back</button>;
+const GoBackButton = ({ state, url, push }) => {
+  return (
+    <button
+      className={s.goback_button}
+      onClick={() => push({ pathname: url }, state)}
+    >
+      Go back
+    </button>
+  );
 };
 export default GoBackButton;

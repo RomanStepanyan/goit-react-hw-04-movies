@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import { getPopularMovies } from '../Api/Api';
 import s from './HomePage.module.css';
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     getPopularMovies().then(setMovies);
   }, []);
-  console.log(movies);
 
   return (
     <div>
@@ -21,17 +21,20 @@ const HomePage = () => {
       <ul className={s.list}>
         {movies &&
           movies.results.map(movie => (
-            <li key={movie.id}>
-              <Link to={`movies/${movie.id}`} className={s.list_item}>
+            <li key={movie.id} className={s.movie_list_item}>
+              <p className={s.vote}>{movie.vote_average}</p>
+              <Link
+                to={{
+                  pathname: `movies/${movie.id}`,
+                  state: { url },
+                }}
+                className={s.list_item}
+              >
                 <img
                   className={s.image}
                   src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
                   alt={movie.original_title}
                 />
-                {/* <p className={s.movie_title}>
-                  {movie.original_title}
-                  <span>{movie.name}</span>
-                </p> */}
               </Link>
             </li>
           ))}
