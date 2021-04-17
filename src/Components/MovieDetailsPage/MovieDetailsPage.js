@@ -23,13 +23,23 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
 
+  console.log(state);
+  console.log(url);
+
   useEffect(() => {
     getMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
   return (
     <div className={s.container}>
-      {movie && <GoBackButton push={push} url={state?.url} state={state} />}
+      {movie && (
+        <GoBackButton
+          push={push}
+          url={`${state?.url}`}
+          search={`${state?.search}`}
+          state={state}
+        />
+      )}
 
       {movie && (
         <div className={s.movie_container}>
