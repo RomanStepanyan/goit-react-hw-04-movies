@@ -23,9 +23,6 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
 
-  console.log(state);
-  console.log(url);
-
   useEffect(() => {
     getMovieDetails(movieId).then(setMovie);
   }, [movieId]);

@@ -13,10 +13,6 @@ const SearchMoviesPage = () => {
     state?.searchedMovies || null,
   );
 
-  console.log(state);
-  console.log(history);
-  console.log(keyWord);
-
   const onChange = ({ target }) => {
     setKeyWord(target.value);
   };
@@ -27,7 +23,6 @@ const SearchMoviesPage = () => {
     const params = new URLSearchParams();
     params.append('query', keyWord);
     history.push({ search: params.toString() });
-    // console.log(history);
   };
 
   // useEffect(() => {

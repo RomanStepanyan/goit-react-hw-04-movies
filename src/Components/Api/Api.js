@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 const API_KEY = '9188dc7af85ddfe1314f5060338d54ff';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -38,3 +39,8 @@ export async function getMoviesReviews(movie_id, page = 1) {
   );
   return res.data;
 }
+
+getMoviesReviews.propTypes = {
+  movie_id: PropTypes.string.isRequired,
+  page: PropTypes.number,
+};
